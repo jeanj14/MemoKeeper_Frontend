@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply m-0 p-0;
+  }
+
+  body {
+    @apply bg-notes-white overflow-hidden;
+
+    & #root {
+      @apply flex h-screen flex-col overflow-y-auto;
+
+      & header,
+      & footer {
+        @apply bg-notes-black text-notes-white flex items-center justify-center px-8 py-4;
+      }
+      & header {
+        @apply justify-between;
+      }
+      & main {
+        @apply bg-notes-white grow;
+      }
+      & footer {
+        & .copy {
+          @apply text-sm font-bold opacity-50;
+        }
+      }
+    }
+  }
+}
