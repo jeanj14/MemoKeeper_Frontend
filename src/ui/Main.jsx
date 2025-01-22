@@ -1,5 +1,13 @@
+import NotesForm from "@components/Main/NotesForm";
+import NotesList from "@components/Main/NotesList";
+
 const Main = () => {
-  return <main>Main</main>;
+  return (
+    <main>
+      <NotesForm />
+      <NotesList />
+    </main>
+  );
 };
 
 export default Main;

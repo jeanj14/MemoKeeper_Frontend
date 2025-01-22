@@ -8,20 +8,23 @@
   }
 
   body {
-    @apply bg-notes-white overflow-hidden;
+    @apply overflow-hidden bg-notes-white;
 
     & #root {
       @apply flex h-screen flex-col overflow-y-auto;
 
       & header,
       & footer {
-        @apply bg-notes-black text-notes-white flex items-center justify-center px-8 py-4;
+        @apply flex items-center justify-center bg-notes-black px-8 py-4 text-notes-white;
       }
       & header {
         @apply justify-between;
       }
       & main {
-        @apply bg-notes-white grow;
+        @apply mx-auto w-[90%] grow bg-notes-white md:w-[80%];
+        & .notes-list {
+          @apply flex flex-wrap gap-4 p-4;
+        }
       }
       & footer {
         & .copy {

@@ -5,7 +5,9 @@
       "@app/*": ["/*"],
       "@assets/*": ["/assets"],
       "@components/*": ["components/*"],
-      "@ui/*": ["ui/*"]
+      "@dev_data/*": ["dev_data/*"],
+      "@ui/*": ["ui/*"],
+      "@utils/*": ["utils/*"]
     }
   }
 }
