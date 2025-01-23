@@ -11,6 +11,8 @@ export default defineConfig({
       "@assets": resolve("src/assets"),
       "@components": resolve("src/components"),
       "@dev_data": resolve("src/dev_data"),
+      "@hooks": resolve("src/hooks"),
+      "@pages": resolve("src/pages"),
       "@ui": resolve("src/ui"),
       "@utils": resolve("src/utils"),
     },

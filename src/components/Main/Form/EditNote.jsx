@@ -1,23 +1,37 @@
 import Form from "@ui/Form";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import convertToBase64 from "@utils/convertToBase64";
+import useConvert64 from "@hooks/useConvert64";
 
 const EditNote = ({ note = {} }) => {
-  const { control, register, formState, handleSubmit } = useForm({
+  const { control, register, formState, handleSubmit, watch } = useForm({
     defaultValues: {
       title: note?.title ?? "",
       content: note?.content ?? "",
-      img: note?.img ?? "",
+      // img: note?.img ?? undefined,
     },
   });
   const { errors } = formState;
+  // const [selImg, setSelImg] = useState("");
+
+  // const [img] = watch(["img"]);
+  // console.log({ watch: img });
+
+  // useEffect(() => {
+  //   if (img) {
+  //     setSelImg((cur) => convertToBase64(img));
+  //     console.log({ newImg: img });
+  //   }
+  // }, [img]);
+
+  // const base64Data = useConvert64(img);
+  // console.log(base64Data);
 
   const submitForm = (data) => {
-    const { title, content, img } = data;
-    console.log(img);
-    // const base64Data = convertToBase64(img[0]);
-    // console.log({ title, content, base64Data });
+    const { title, content } = data;
+    // console.log(img);
+    console.log({ title, content });
   };
 
   return (
@@ -45,17 +59,6 @@ const EditNote = ({ note = {} }) => {
         <p className="text-sm font-bold text-red-700">
           {errors?.content?.message}
         </p>
-      </div>
-      <div>
-        <input
-          id="img"
-          name="img"
-          type="file"
-          {...register("img", {
-            onChange: (e) => convertToBase64(e.target.files[0]),
-          })}
-          className="w-full"
-        />
       </div>
       <button type="submit">Save changes</button>
     </Form>
