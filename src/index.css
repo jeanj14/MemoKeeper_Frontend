@@ -21,9 +21,20 @@
         @apply justify-between;
       }
       & main {
-        @apply mx-auto w-[90%] grow bg-notes-white md:w-[80%];
+        @apply mx-auto w-[90%] grow bg-notes-white py-16 md:w-[80%];
         & .notes-list {
           @apply flex flex-wrap gap-4 p-4;
+        }
+      }
+      & form {
+        & .button {
+          @apply bg-notes-black text-notes-teal transition-all duration-300;
+          &.alternate {
+            @apply bg-notes-teal text-notes-black;
+          }
+          &.Mui-disabled {
+            @apply text-notes-white opacity-50;
+          }
         }
       }
       & footer {

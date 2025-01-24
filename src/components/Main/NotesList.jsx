@@ -1,6 +1,5 @@
-import React from "react";
 import notes from "@dev_data/notes";
-import Note from "./Notes/Note";
+import Note from "@components/Main//Notes/Note";
 
 const NotesList = () => {
   return (
