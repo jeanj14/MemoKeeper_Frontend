@@ -1,46 +1,52 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./assets/css/theme.css";
+@import "./assets/css/utilities.css";
+@import "tailwindcss";
 
-@layer base {
-  * {
-    @apply m-0 p-0;
-  }
+* {
+  @apply m-0 p-0;
+}
 
-  body {
-    @apply overflow-hidden bg-notes-white;
-
-    & #root {
-      @apply flex h-screen flex-col overflow-y-auto;
-
-      & header,
-      & footer {
-        @apply flex items-center justify-center bg-notes-black px-8 py-4 text-notes-white;
+body {
+  @apply bg-notes-white overflow-hidden;
+  & #root {
+    @apply flex h-screen flex-col overflow-y-auto;
+    & header,
+    & footer {
+      @apply bg-notes-black text-notes-white flex items-center justify-center px-8 py-4;
+    }
+    & header {
+      @apply justify-between;
+    }
+    & main {
+      @apply bg-notes-white mx-auto w-[90%] grow py-16 md:w-[80%];
+      & .notes-list {
+        @apply flex flex-wrap gap-4 p-4;
       }
-      & header {
-        @apply justify-between;
-      }
-      & main {
-        @apply mx-auto w-[90%] grow bg-notes-white py-16 md:w-[80%];
-        & .notes-list {
-          @apply flex flex-wrap gap-4 p-4;
+    }
+    & form {
+      @apply justify-self-center;
+      & .button {
+        @apply bg-notes-black text-notes-teal justify-center transition-all duration-300;
+        &.alternate {
+          @apply bg-notes-teal text-notes-black;
+        }
+        &.Mui-disabled {
+          @apply text-notes-white opacity-50;
         }
       }
-      & form {
-        & .button {
-          @apply bg-notes-black text-notes-teal transition-all duration-300;
-          &.alternate {
-            @apply bg-notes-teal text-notes-black;
-          }
-          &.Mui-disabled {
-            @apply text-notes-white opacity-50;
-          }
+      & .MuiInputLabel-root {
+        @apply text-notes-black;
+      }
+      & .MuiInputBase-root {
+        /* @apply focus-within:shadow-2xl focus-within:shadow-red-200; */
+        &::after {
+          @apply border-notes-teal;
         }
       }
-      & footer {
-        & .copy {
-          @apply text-sm font-bold opacity-50;
-        }
+    }
+    & footer {
+      & .copy {
+        @apply text-sm font-bold opacity-50;
       }
     }
   }

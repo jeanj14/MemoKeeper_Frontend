@@ -1,7 +1,9 @@
-import notes from "@dev_data/notes";
 import Note from "@components/Main//Notes/Note";
+import useNotes from "@hooks/useGetNotes";
 
 const NotesList = () => {
+  const { notes } = useNotes();
+
   return (
     <div className="notes-list">
       {notes.map((note) => (

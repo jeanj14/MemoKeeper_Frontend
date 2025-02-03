@@ -1,31 +1,34 @@
+import useNotes from "@hooks/useGetNotes";
 import { Button, Grid2 as Grid, TextField } from "@mui/material";
 import Form from "@ui/Form";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const NoteForm = ({ note }) => {
+  const { addNote } = useNotes();
   const { control, watch, formState, register, handleSubmit, reset } = useForm({
     defaultValues: {
-      title: note?.title,
-      content: note?.content,
+      title: note?.title ? note.title : "",
+      content: note?.content ? note.content : "",
     },
   });
 
-  const { errors, isDirty } = formState;
+  const { errors } = formState;
 
   const submitForm = (data) => {
     const { title, content } = data;
-    console.log({ title, content });
+    addNote({ title, content });
+    reset();
   };
 
-  const [title, content] = watch(["title", "content"]);
+  const [content] = watch(["content"]);
 
   const [charCount, setCharCount] = useState(content?.length ?? 0);
 
   useEffect(() => {
-    console.log({ title, content });
+    console.log(charCount);
     setCharCount(content?.length);
-  }, [title, content]);
+  }, [content, charCount]);
 
   return (
     <Form
@@ -63,22 +66,25 @@ const NoteForm = ({ note }) => {
           helperText={
             errors?.content ? errors.content.message : `${charCount} / 255`
           }
+          slotProps={{
+            formHelperText: {
+              className:
+                Object.values(errors).length === 0
+                  ? "w-full !m-0 !text-right"
+                  : "",
+            },
+          }}
           error={errors?.content && true}
         />
         <Grid className="flex justify-end gap-4">
           <Button
             type="submit"
-            disabled={Object.keys(errors).length > 0 || !isDirty}
             className="button"
+            disabled={Object.keys(errors).length > 0}
           >
             Add note
           </Button>
-          <Button
-            type="reset"
-            onClick={() => reset()}
-            className="button alternate"
-            disabled={title?.length === 0 || content?.length === 0}
-          >
+          <Button onClick={() => reset()} className="button alternate">
             Cancel
           </Button>
         </Grid>
