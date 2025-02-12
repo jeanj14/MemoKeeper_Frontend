@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
+      "@api": resolve("src/api"),
       "@app": resolve("src"),
       "@assets": resolve("src/assets"),
       "@components": resolve("src/components"),

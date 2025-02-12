@@ -1,15 +1,30 @@
+import useNotes from "@api/useNotes";
+import EditForm from "@components/Main/Notes/EditForm";
 import NotesForm from "@components/Main/NotesForm";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Edit = () => {
   const { pathname } = useLocation();
+  // const [edtNote, setEdtNote] = useState({});
+
+  const { posts } = useNotes.useGetPosts();
+
+  const edtNote = posts?.at(0);
 
   useEffect(() => {
     if (pathname === "/edit") document.title = "Notes Keeper // Edit";
-  }, [pathname]);
+  }, [pathname, posts]);
+  // const editNote = posts?.at(0);
 
-  return <NotesForm isEdit />;
+  console.log({ editPageNote: edtNote });
+
+  return (
+    <>
+      {edtNote && <EditForm note={edtNote} />}
+      {/* {JSON.stringify(note)} */}
+    </>
+  );
 };
 
 export default Edit;

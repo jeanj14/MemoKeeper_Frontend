@@ -1,27 +1,26 @@
+import useNotes from "@api/useNotes";
+import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 const Note = ({ note }) => {
-  const { id, title, content, date } = note;
+  const { delNotes } = useNotes.useDelNotes();
+  const { id, title, content, createdAt } = note;
+  const date = new Date(createdAt);
+
+  const handleDeleteNote = (id) => {
+    delNotes({ id });
+  };
+
   return (
     <div>
       <h3>{title}</h3>
       <p>{content}</p>
       <p>{date.toISOString()}</p>
-      {/* <img src={img} alt={title} /> */}
       <span>{id}</span>
-      {/* work as link that will redirect to a edit notes page*/}
-      {/* <button>Edit note</button> */}
-      <NavLink to={`/edit`}>Edit note</NavLink>
+      <NavLink to={`/edit?id=${id}`}>Edit note</NavLink>
+      <Button onClick={() => handleDeleteNote(id)}>Delete note</Button>
     </div>
   );
 };
 
 export default Note;
-
-/*
-  - There are two components from react-router-dom used for navitation purpose
-
-  - The component NavLink from react-router is used for internal navigation inside the application
-
-  - The component Link from react-router is used for redirecting to external links
-*/

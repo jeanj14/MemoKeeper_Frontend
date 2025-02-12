@@ -1,15 +1,18 @@
-import Note from "@components/Main//Notes/Note";
-import useNotes from "@hooks/useGetNotes";
+import useGetNotes from "@api/useNotes";
+import Note from "@components/Main/Notes/Note";
+import { Grid2 as Grid } from "@mui/material";
 
 const NotesList = () => {
-  const { notes } = useNotes();
+  const { posts: notes } = useGetNotes.useGetPosts();
+
+  if (!notes) return <p>There are no notes</p>;
 
   return (
-    <div className="notes-list">
+    <Grid className="notes-list">
       {notes.map((note) => (
         <Note note={note} key={note.id} />
       ))}
-    </div>
+    </Grid>
   );
 };
 

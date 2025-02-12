@@ -1,30 +1,22 @@
 import useNotes from "@api/useNotes";
+import TextInput from "@components/Form/TextInput";
 import { Button, Grid2 as Grid, TextField } from "@mui/material";
 import Form from "@ui/Form";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const NoteForm = ({ isEdit, editNote }) => {
-  const { addNotes } = useNotes.useAddNotes();
-  
-
-  console.log({
-    editNote,
-    title: editNote?.title ? editNote.title : "",
-    content: editNote?.content ? editNote.content : "",
-  });
-
+const EditForm = ({ note = {} }) => {
+  const { id, ...edtValues } = note;
+  console.log({ edtFormNote: note });
+  const isEdit = Boolean(note?.id);
   // useEffect(() => {
   //   setNote(editNote);
   // }, [isEdit, editNote]);
 
-  const { control, watch, formState, register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      title: editNote?.title ? editNote.title : "",
-      content: editNote?.content ? editNote.content : "",
-    },
-  });
-
+  const { control, reset, handleSubmit, formState, register, watch, setValue } =
+    useForm({
+      defaultValues: isEdit ? edtValues : {},
+    });
   const { errors } = formState;
 
   console.log(formState.defaultValues);
@@ -32,22 +24,23 @@ const NoteForm = ({ isEdit, editNote }) => {
   // console.log(note, editNote);
 
   const submitForm = async (data) => {
+    console.log(data);
     // if (isEdit) {
     // updNotes(data)
     // navigate('/')
     // };
-    addNotes(data);
+    // addNotes(data);
     reset();
   };
 
-  const [content] = watch(["content"]);
+  const [contentField] = watch(["content"]);
 
-  const [charCount, setCharCount] = useState(content?.length ?? 0);
+  const [charCount, setCharCount] = useState(contentField?.length ?? 0);
 
   useEffect(() => {
     console.log(charCount);
-    setCharCount(content?.length);
-  }, [content, charCount]);
+    setCharCount(contentField?.length);
+  }, [contentField, charCount]);
 
   return (
     <Form
@@ -101,18 +94,20 @@ const NoteForm = ({ isEdit, editNote }) => {
             className="button"
             disabled={Object.keys(errors).length > 0}
           >
-            Add note
+            Update note
           </Button>
           <Button onClick={() => reset()} className="button alternate">
             Cancel
           </Button>
         </Grid>
       </Grid>
+
+      {<pre>{JSON.stringify(note, null, 2)}</pre>}
     </Form>
   );
 };
 
-export default NoteForm;
+export default EditForm;
 
 /*
   - [ ] Fix conditions for disabling button

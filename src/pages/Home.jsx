@@ -1,3 +1,4 @@
+import AddForm from "@components/Main/Notes/AddForm";
 import NotesForm from "@components/Main/NotesForm";
 import NotesList from "@components/Main/NotesList";
 import React, { useEffect } from "react";
@@ -14,7 +15,7 @@ const Home = () => {
 
   return (
     <>
-      <NotesForm />
+      <AddForm />
       <NotesList />
     </>
   );
