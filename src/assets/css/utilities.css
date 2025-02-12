@@ -1,3 +1,7 @@
 @utility background-test {
   background-color: red;
 }
+
+@utility shadow-notes {
+  box-shadow: 0 0 5px rgb(27, 28, 29);
+}

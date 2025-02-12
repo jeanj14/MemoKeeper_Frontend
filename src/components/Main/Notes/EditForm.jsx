@@ -1,37 +1,30 @@
 import useNotes from "@api/useNotes";
-import TextInput from "@components/Form/TextInput";
-import { Button, Grid2 as Grid, TextField } from "@mui/material";
+import { ArrowBack, BackHand, Refresh, Save } from "@mui/icons-material";
+import { Button, Grid2 as Grid, IconButton, TextField } from "@mui/material";
 import Form from "@ui/Form";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const EditForm = ({ note = {} }) => {
+  const navigate = useNavigate();
   const { id, ...edtValues } = note;
-  console.log({ edtFormNote: note });
+  const { updNotes } = useNotes.useUpdNotes();
   const isEdit = Boolean(note?.id);
-  // useEffect(() => {
-  //   setNote(editNote);
-  // }, [isEdit, editNote]);
 
-  const { control, reset, handleSubmit, formState, register, watch, setValue } =
-    useForm({
-      defaultValues: isEdit ? edtValues : {},
-    });
+  const { control, reset, handleSubmit, formState, register, watch } = useForm({
+    defaultValues: isEdit ? edtValues : {},
+  });
   const { errors } = formState;
 
-  console.log(formState.defaultValues);
-
-  // console.log(note, editNote);
-
   const submitForm = async (data) => {
-    console.log(data);
-    // if (isEdit) {
-    // updNotes(data)
-    // navigate('/')
-    // };
-    // addNotes(data);
-    reset();
+    console.log("submitdata", { id, data });
+    updNotes({ id, data });
+    // reset();
+    handleBack();
   };
+
+  const handleBack = () => navigate(-1);
 
   const [contentField] = watch(["content"]);
 
@@ -88,21 +81,27 @@ const EditForm = ({ note = {} }) => {
           }}
           error={errors?.content && true}
         />
-        <Grid className="flex justify-end gap-4">
-          <Button
+        <Grid className="flex items-center justify-center gap-4">
+          <IconButton
             type="submit"
             className="button"
             disabled={Object.keys(errors).length > 0}
           >
-            Update note
-          </Button>
-          <Button onClick={() => reset()} className="button alternate">
-            Cancel
+            <Save />
+          </IconButton>
+          <IconButton onClick={() => reset()} className="button alternate">
+            <Refresh />
+          </IconButton>
+
+          <Button
+            className="button w-fit justify-self-center"
+            onClick={handleBack}
+            startIcon={<ArrowBack />}
+          >
+            Back to all posts
           </Button>
         </Grid>
       </Grid>
-
-      {<pre>{JSON.stringify(note, null, 2)}</pre>}
     </Form>
   );
 };

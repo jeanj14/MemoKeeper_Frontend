@@ -1,15 +1,12 @@
+import queries from "@api/queries";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import queries from "@api/queries";
-import { useEffect } from "react";
 
 const useGetPosts = () => {
   const [query] = useSearchParams();
 
-  console.log(...query);
-
   const {
-    isPending,
+    isLoading,
     data: { posts } = [],
     error,
   } = useQuery({
@@ -22,7 +19,7 @@ const useGetPosts = () => {
     retry: false,
     throwOnError: true,
   });
-  return { isPending, posts, error };
+  return { isLoading, posts, error };
 };
 
 const useAddNotes = () => {
@@ -54,10 +51,29 @@ const useDelNotes = () => {
   return { delNotes };
 };
 
+const useUpdNotes = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: updNotes } = useMutation({
+    mutationFn: async ({ id, data }) => {
+      console.log("inside mutation", { id, data });
+      await queries.upd({ id, data, resource: "posts" });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notes"]);
+    },
+    onError: (error) => {
+      console.error("Error updating note:", error);
+    },
+  });
+  return { updNotes };
+};
+
 const useNotes = {
   useGetPosts,
   useAddNotes,
   useDelNotes,
+  useUpdNotes,
 };
 
 export default useNotes;

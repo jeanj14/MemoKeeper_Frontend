@@ -1,7 +1,7 @@
 import AddForm from "@components/Main/Notes/AddForm";
-import NotesForm from "@components/Main/NotesForm";
 import NotesList from "@components/Main/NotesList";
-import React, { useEffect } from "react";
+import { Divider, Grid2 as Grid } from "@mui/material";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const Home = () => {
@@ -16,6 +16,7 @@ const Home = () => {
   return (
     <>
       <AddForm />
+      <Divider className="bg-notes-teal/50 !m-3 w-full" />
       <NotesList />
     </>
   );

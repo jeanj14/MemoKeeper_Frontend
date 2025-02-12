@@ -4,6 +4,7 @@
   --color-notes-white: #ececec;
   --page: "Roboto";
   --height-screen: 100dvh;
+  --shadow-notes: 0 0 5px #1b1c1d;
 }
 
 @theme inline {

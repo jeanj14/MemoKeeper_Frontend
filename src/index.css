@@ -3,7 +3,16 @@
 @import "tailwindcss";
 
 * {
-  @apply m-0 p-0;
+  @apply m-0 scroll-smooth p-0;
+  ::-webkit-scrollbar {
+    @apply h-[8px] w-[8px] bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-notes-teal;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-notes-black;
+  }
 }
 
 body {
@@ -12,28 +21,30 @@ body {
     @apply flex h-screen flex-col overflow-y-auto;
     & header,
     & footer {
-      @apply bg-notes-black text-notes-white flex items-center justify-center px-8 py-4;
+      @apply bg-notes-black text-notes-white shadow-notes z-10 flex items-center justify-center px-8 py-4;
     }
     & header {
-      @apply justify-between;
+      @apply sticky top-0 justify-between;
     }
     & main {
-      @apply bg-notes-white mx-auto w-[90%] grow py-16 md:w-[80%];
+      @apply bg-notes-white mx-auto flex w-[90%] grow flex-col items-center py-16 md:w-[80%];
       & .notes-list {
-        @apply flex flex-wrap gap-4 p-4;
+        @apply flex w-full grow flex-wrap items-center justify-center gap-4 pb-4;
+      }
+    }
+
+    & .button {
+      @apply bg-notes-black text-notes-teal justify-center transition-all duration-300;
+      &.alternate {
+        @apply bg-notes-teal text-notes-black;
+      }
+      &.Mui-disabled {
+        @apply text-notes-white opacity-50;
       }
     }
     & form {
       @apply justify-self-center;
-      & .button {
-        @apply bg-notes-black text-notes-teal justify-center transition-all duration-300;
-        &.alternate {
-          @apply bg-notes-teal text-notes-black;
-        }
-        &.Mui-disabled {
-          @apply text-notes-white opacity-50;
-        }
-      }
+
       & .MuiInputLabel-root {
         @apply text-notes-black;
       }

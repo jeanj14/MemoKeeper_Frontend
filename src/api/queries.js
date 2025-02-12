@@ -18,7 +18,11 @@ const get = async ({ resource, query }) => {
   return res;
 };
 
-// const upd = ()
+const upd = async ({ id, data, resource }) => {
+  const queryURL = `/${resource}/?id=${id}`;
+  const res = await axiosInstance.patch(queryURL, data);
+  return res;
+};
 
 // const rst = ()
 
@@ -26,7 +30,7 @@ const queries = {
   add,
   del,
   get,
-  // upd,
+  upd,
   // rst
 };
 
