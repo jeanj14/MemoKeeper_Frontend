@@ -1,6 +1,6 @@
 import AddForm from "@components/Main/Notes/AddForm";
 import NotesList from "@components/Main/NotesList";
-import { Divider, Grid2 as Grid } from "@mui/material";
+import { Divider } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
