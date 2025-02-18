@@ -2,10 +2,12 @@ import useGetNotes from "@api/useNotes";
 import Note from "@components/Main/Notes/Note";
 import { CircularProgress, Grid2 as Grid } from "@mui/material";
 
-const NotesList = () => {
-  const { posts: notes, isLoading } = useGetNotes.useGetPosts();
+const NotesList = ({ isDeleted = false }) => {
+  const { posts: notes, isLoading: loadingAll } = useGetNotes.useGetPosts();
+  const { posts: deletedNotes, isLoading: loadingDeleted } =
+    useGetNotes.useGetDelNotes();
 
-  if (isLoading)
+  if (loadingAll || loadingDeleted)
     return (
       <Grid className="flex grow flex-col items-center justify-center gap-4 justify-self-center">
         <CircularProgress className="!text-notes-teal" />
@@ -13,7 +15,7 @@ const NotesList = () => {
       </Grid>
     );
 
-  if (!notes)
+  if (!isDeleted && !notes)
     return (
       <Grid className="flex grow flex-col items-center justify-center gap-4 justify-self-center">
         <p className="text-notes-black text-xl">
@@ -22,13 +24,22 @@ const NotesList = () => {
       </Grid>
     );
 
+  if (isDeleted && !deletedNotes.length)
+    return (
+      <Grid className="flex grow flex-col items-center justify-center gap-4 justify-self-center">
+        <p className="text-notes-black text-xl">
+          There are no deleted notes to be displayed!
+        </p>
+      </Grid>
+    );
+
   return (
     <Grid className="flex w-full grow">
-      {!isLoading && (
+      {(!loadingAll || !loadingDeleted) && (
         <Grid className="notes-list">
-          {notes.map((note) => (
-            <Note note={note} key={note.id} />
-          ))}
+          {!isDeleted
+            ? notes.map((note) => <Note note={note} key={note.id} />)
+            : deletedNotes.map((note) => <Note note={note} key={note.id} />)}
         </Grid>
       )}
     </Grid>

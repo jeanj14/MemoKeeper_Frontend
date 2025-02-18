@@ -1,7 +1,6 @@
 import axiosInstance from "@api/axiosInstance";
 
 const add = async ({ data, resource }) => {
-  console.log(data, resource);
   const queryURL = `/${resource}`;
   await axiosInstance.post(queryURL, data);
 };
@@ -24,14 +23,29 @@ const upd = async ({ id, data, resource }) => {
   return res;
 };
 
-// const rst = ()
+const getDelNotes = async ({ resource, query }) => {
+  const queryURL = `/${resource}/?${query}&deleted=true`;
+  const data = await axiosInstance.get(queryURL);
+  const posts = data?.posts.filter((post) => {
+    return post.deletedAt !== null;
+  });
+
+  return { posts };
+};
+
+const rstNotes = async ({ id, resource }) => {
+  const rstId = id.id;
+  const queryURL = `/${resource}/restore/?id=${rstId}`;
+  await axiosInstance.get(queryURL);
+};
 
 const queries = {
   add,
   del,
   get,
   upd,
-  // rst
+  getDelNotes,
+  rstNotes,
 };
 
 export default queries;

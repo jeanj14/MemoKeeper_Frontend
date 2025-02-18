@@ -1,5 +1,6 @@
 import useNotes from "@api/useNotes";
 import EditForm from "@components/Main/Notes/EditForm";
+import NotFound from "@pages/NotFound";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,10 +12,10 @@ const Edit = () => {
   const edtNote = posts?.at(0);
 
   useEffect(() => {
-    if (pathname === "/edit") document.title = "Notes Keeper // Edit";
+    if (pathname === "/edit") document.title = "Notes Keeper // Edit Note";
   }, [pathname, posts]);
 
-  console.log({ editPageNote: edtNote });
+  if (!posts) return <NotFound resource="note" />;
 
   return <>{edtNote && <EditForm note={edtNote} />}</>;
 };

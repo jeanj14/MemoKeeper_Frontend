@@ -1,5 +1,4 @@
 import { DevTool } from "@hookform/devtools";
-import React from "react";
 
 const isDev = import.meta.env.DEV;
 

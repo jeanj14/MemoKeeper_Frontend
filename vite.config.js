@@ -15,6 +15,7 @@ export default defineConfig({
       "@dev_data": resolve("src/dev_data"),
       "@hooks": resolve("src/hooks"),
       "@pages": resolve("src/pages"),
+      "@store": resolve("src/store"),
       "@ui": resolve("src/ui"),
       "@utils": resolve("src/utils"),
     },

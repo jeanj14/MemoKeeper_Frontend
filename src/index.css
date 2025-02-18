@@ -19,6 +19,20 @@ body {
   @apply bg-notes-white overflow-hidden;
   & #root {
     @apply flex h-screen flex-col overflow-y-auto;
+    & h1,
+    h2,
+    h3 {
+      @apply text-center;
+    }
+    & h1 {
+      @apply text-4xl font-extrabold uppercase md:text-6xl;
+    }
+    & h2 {
+      @apply text-2xl font-extrabold uppercase md:text-4xl;
+    }
+    & h3 {
+      @apply text-lg font-extrabold uppercase md:text-2xl;
+    }
     & header,
     & footer {
       @apply bg-notes-black text-notes-white shadow-notes z-10 flex items-center justify-center px-8 py-4;
@@ -49,7 +63,6 @@ body {
         @apply text-notes-black;
       }
       & .MuiInputBase-root {
-        /* @apply focus-within:shadow-2xl focus-within:shadow-red-200; */
         &::after {
           @apply border-notes-teal;
         }

@@ -9,6 +9,7 @@
       "@dev_data/*": ["dev_data/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
       "@ui/*": ["ui/*"],
       "@utils/*": ["utils/*"]
     }
