@@ -4,6 +4,19 @@ import Form from "@ui/Form";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+/**
+ * NoteForm component for creating or editing notes.
+ *
+ * This component renders a form for adding or editing notes. It includes fields
+ * for the note's title and content, with character count and validation.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isEdit - Indicates if the form is in edit mode.
+ * @param {Object} [props.editNote] - The note being edited (if in edit mode).
+ * @param {string} [props.editNote.title] - The title of the note being edited.
+ * @param {string} [props.editNote.content] - The content of the note being edited.
+ * @returns {JSX.Element} A form for creating or editing notes.
+ */
 const NoteForm = ({ isEdit, editNote }) => {
   const { addNotes } = useNotes.useAddNotes();
 
@@ -102,4 +115,3 @@ const NoteForm = ({ isEdit, editNote }) => {
 };
 
 export default NoteForm;
-
