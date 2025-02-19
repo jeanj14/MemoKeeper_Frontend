@@ -6,17 +6,6 @@ import { useForm } from "react-hook-form";
 
 const NoteForm = ({ isEdit, editNote }) => {
   const { addNotes } = useNotes.useAddNotes();
-  
-
-  console.log({
-    editNote,
-    title: editNote?.title ? editNote.title : "",
-    content: editNote?.content ? editNote.content : "",
-  });
-
-  // useEffect(() => {
-  //   setNote(editNote);
-  // }, [isEdit, editNote]);
 
   const { control, watch, formState, register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -114,6 +103,3 @@ const NoteForm = ({ isEdit, editNote }) => {
 
 export default NoteForm;
 
-/*
-  - [ ] Fix conditions for disabling button
-*/
