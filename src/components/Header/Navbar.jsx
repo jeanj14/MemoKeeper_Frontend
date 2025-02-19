@@ -11,7 +11,7 @@ const Navbar = () => {
   }, [posts]);
 
   return (
-    <>{delCount && <NavLink to="/deleted">Manage deleted posts</NavLink>}</>
+    <>{delCount && <NavLink to="/deleted">Manage deleted posts here!</NavLink>}</>
   );
 };
 
