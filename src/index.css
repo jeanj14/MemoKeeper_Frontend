@@ -74,4 +74,31 @@ body {
       }
     }
   }
+
+  & .MuiDataGrid-root {
+    @apply bg-notes-black text-notes-white !outline-none;
+    & .MuiButtonBase-root {
+      @apply text-notes-teal hover:bg-notes-white hover:text-notes-black transition-all duration-500;
+    }
+    & .MuiTablePagination-root,
+    & .MuiDataGrid-columnHeaders {
+      @apply bg-notes-teal !text-notes-black;
+      & .MuiDataGrid-columnHeader {
+        @apply bg-notes-teal;
+      }
+      & .MuiButtonBase-root {
+        @apply text-notes-black hover:bg-notes-white hover:text-notes-black transition-all duration-500;
+      }
+    }
+  }
+
+  & .MuiPaper-root {
+    @apply bg-notes-white;
+    & .MuiMenuItem-root {
+      @apply hover:bg-notes-teal font-bold transition-all duration-500;
+      &.Mui-selected {
+        @apply bg-notes-teal text-notes-white hover:text-notes-black;
+      }
+    }
+  }
 }

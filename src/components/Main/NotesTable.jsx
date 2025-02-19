@@ -1,14 +1,20 @@
 import useNotes from "@api/useNotes";
-import { Restore } from "@mui/icons-material";
+import { Delete, Restore } from "@mui/icons-material";
+import { Grid2 as Grid } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import NoRowsOverlay from "@ui/NoRowsOverlay";
 
 const NotesTable = () => {
   const { posts } = useNotes.useGetDelNotes();
-  // const navigate = useNavigate();
   const { rstNotes } = useNotes.useRstNotes();
+  const { forceDel } = useNotes.useForceDelNotes();
 
   const handleRestore = (id) => {
     rstNotes({ id, resource: "posts" });
+  };
+
+  const handleDeletePermanently = (id) => {
+    forceDel({ id, resource: "posts" });
   };
 
   const rows = posts?.map((post) => {
@@ -20,18 +26,21 @@ const NotesTable = () => {
     {
       field: "title",
       headerName: "Title",
-      width: 200,
-      resizable: false,
+      minWidth: 200,
+      flex: 0.5,
     },
+
     {
       field: "content",
       headerName: "Content",
-      width: 200,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "deletedAt",
       headerName: "Deleted at",
-      width: 200,
+      minWidth: 100,
+      valueGetter: (params) => params.split("T")[0],
     },
     {
       field: "action",
@@ -45,16 +54,39 @@ const NotesTable = () => {
           label="Restore"
           onClick={() => handleRestore(id)}
         />,
+        <GridActionsCellItem
+          key={id}
+          icon={<Delete />}
+          label="Delete Permentily"
+          onClick={() => handleDeletePermanently(id)}
+        />,
       ],
     },
   ];
 
   return (
-    <DataGrid
-      rows={rows}
-      columns={cols}
-      columnVisibilityModel={{ id: false }}
-    />
+    <Grid
+      className={`flex w-full flex-col justify-center ${!rows?.length && "!h-full"}`}
+    >
+      <DataGrid
+        rows={rows}
+        columns={cols}
+        columnVisibilityModel={{ id: false }}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
+        pageSizeOptions={[5, 10, 25]}
+        // autosizeOptions={{ expand: false }}
+
+        // autosizeOnMount
+        disableColumnMenu
+        disableRowSelectionOnClick
+        disableColumnResize
+        slots={{
+          noRowsOverlay: NoRowsOverlay,
+        }}
+      />
+    </Grid>
   );
 };
 

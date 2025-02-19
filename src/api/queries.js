@@ -39,6 +39,12 @@ const rstNotes = async ({ id, resource }) => {
   await axiosInstance.get(queryURL);
 };
 
+const forceDel = async ({ id, resource }) => {
+  const deleteId = id.id;
+  const queryURL = `/${resource}/?id=${deleteId}&force=true`;
+  await axiosInstance.delete(queryURL);
+};
+
 const queries = {
   add,
   del,
@@ -46,6 +52,7 @@ const queries = {
   upd,
   getDelNotes,
   rstNotes,
+  forceDel,
 };
 
 export default queries;

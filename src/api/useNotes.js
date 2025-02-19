@@ -132,6 +132,29 @@ const useRstNotes = () => {
   return { rstNotes };
 };
 
+const useForceDelNotes = () => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+
+  const { mutate: forceDel } = useMutation({
+    mutationFn: async (id) => await queries.forceDel({ id, resource: "posts" }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notes"]);
+      queryClient.invalidateQueries(["notes-deleted"]);
+      dispatch(
+        setMsg({ msg: "Note deleted successfully!", status: "success" }),
+      );
+    },
+    onError: (error) => {
+      console.error("Error deleting note:", error);
+      dispatch(
+        setMsg({ msg: "There was an error deleting note", status: "error" }),
+      );
+    },
+  });
+  return { forceDel };
+};
+
 const useNotes = {
   useGetPosts,
   useAddNotes,
@@ -139,6 +162,7 @@ const useNotes = {
   useUpdNotes,
   useGetDelNotes,
   useRstNotes,
+  useForceDelNotes,
 };
 
 export default useNotes;
