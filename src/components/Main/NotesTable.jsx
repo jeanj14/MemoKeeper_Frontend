@@ -3,11 +3,16 @@ import { Delete, Restore } from "@mui/icons-material";
 import { Grid2 as Grid } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import NoRowsOverlay from "@ui/NoRowsOverlay";
+import Confirmation from "@ui/Confirmation";
+import { useState } from "react";
 
 const NotesTable = () => {
   const { posts } = useNotes.useGetDelNotes();
   const { rstNotes } = useNotes.useRstNotes();
   const { forceDel } = useNotes.useForceDelNotes();
+  const [isOpen, setIsOpen] = useState(false);
+  const [id, setId] = useState(null);
+  const [mode, setMode] = useState("restore");
 
   const handleRestore = (id) => {
     rstNotes({ id, resource: "posts" });
@@ -15,6 +20,13 @@ const NotesTable = () => {
 
   const handleDeletePermanently = (id) => {
     forceDel({ id, resource: "posts" });
+  };
+
+  const handleToggle = (id, mode) => {
+    setId(id);
+    setMode(mode);
+    setIsOpen((cur) => !cur);
+    console.log(id, mode);
   };
 
   const rows = posts?.map((post) => {
@@ -52,13 +64,13 @@ const NotesTable = () => {
           key={id}
           icon={<Restore />}
           label="Restore"
-          onClick={() => handleRestore(id)}
+          onClick={() => handleToggle(id, "restore")}
         />,
         <GridActionsCellItem
           key={id}
           icon={<Delete />}
           label="Delete Permentily"
-          onClick={() => handleDeletePermanently(id)}
+          onClick={() => handleToggle(id, "delete")}
         />,
       ],
     },
@@ -85,6 +97,13 @@ const NotesTable = () => {
         slots={{
           noRowsOverlay: NoRowsOverlay,
         }}
+      />
+      <Confirmation
+        open={isOpen}
+        handleToggle={handleToggle}
+        handleDelete={() => handleDeletePermanently(id)}
+        handleRestore={() => handleRestore(id)}
+        mode={mode}
       />
     </Grid>
   );

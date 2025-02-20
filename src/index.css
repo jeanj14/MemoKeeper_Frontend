@@ -101,4 +101,8 @@ body {
       }
     }
   }
+
+  & .MuiBackdrop-root {
+    @apply bg-notes-teal/30 backdrop-blur-[5px];
+  }
 }
