@@ -106,7 +106,3 @@ const AddForm = () => {
 };
 
 export default AddForm;
-
-/*
-  - [ ] Fix conditions for disabling button
-*/

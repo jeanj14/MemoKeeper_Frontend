@@ -107,7 +107,3 @@ const EditForm = ({ note = {} }) => {
 };
 
 export default EditForm;
-
-/*
-  - [ ] Fix conditions for disabling button
-*/
