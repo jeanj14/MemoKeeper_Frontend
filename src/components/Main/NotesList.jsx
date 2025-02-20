@@ -15,7 +15,7 @@ const NotesList = ({ isDeleted = false }) => {
       </Grid>
     );
 
-  if (!isDeleted && !notes)
+  if (!isDeleted && !notes.length)
     return (
       <Grid className="flex grow flex-col items-center justify-center gap-4 justify-self-center">
         <p className="text-notes-black text-xl">

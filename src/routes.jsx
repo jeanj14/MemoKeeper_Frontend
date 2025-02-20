@@ -5,7 +5,6 @@ import NotFound from "@pages/NotFound";
 import Test from "@pages/Test";
 import ErrorFallback from "@ui/ErrorFallback";
 import Layout from "@ui/Layout";
-import ProtectedRoute from "@ui/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 
 const routes = createBrowserRouter([
@@ -28,14 +27,6 @@ const routes = createBrowserRouter([
       {
         path: "/test",
         element: <Test />,
-      },
-      {
-        path: "/protected",
-        element: (
-          <ProtectedRoute>
-            <div>Dashboard</div>
-          </ProtectedRoute>
-        ),
       },
       {
         path: "*",
