@@ -1,5 +1,5 @@
 import useNotes from "@api/useNotes";
-import EditForm from "@components/Main/Notes/EditForm";
+import NoteForm from "@components/Notes/NoteForm";
 import NotFound from "@pages/NotFound";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -17,7 +17,7 @@ const Edit = () => {
 
   if (!posts) return <NotFound resource="note" />;
 
-  return <>{edtNote && <EditForm note={edtNote} />}</>;
+  return <>{edtNote && <NoteForm note={edtNote} />}</>;
 };
 
 export default Edit;

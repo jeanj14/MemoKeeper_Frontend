@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const EditForm = ({ note = {} }) => {
+const NoteForm = ({ note = {} }) => {
   const navigate = useNavigate();
   const { id, ...edtValues } = note;
   const { updNotes } = useNotes.useUpdNotes();
+  const { addNotes } = useNotes.useAddNotes();
   const isEdit = Boolean(note?.id);
 
   const { control, reset, handleSubmit, formState, register, watch } = useForm({
@@ -18,10 +19,13 @@ const EditForm = ({ note = {} }) => {
   const { errors } = formState;
 
   const submitForm = async (data) => {
-    console.log("submitdata", { id, data });
-    updNotes({ id, data });
-    // reset();
-    handleBack();
+    if (isEdit) {
+      updNotes({ id, data });
+      handleBack();
+    } else {
+      addNotes(data);
+      reset();
+    }
   };
 
   const handleBack = () => navigate(-1);
@@ -31,7 +35,6 @@ const EditForm = ({ note = {} }) => {
   const [charCount, setCharCount] = useState(contentField?.length ?? 0);
 
   useEffect(() => {
-    console.log(charCount);
     setCharCount(contentField?.length);
   }, [contentField, charCount]);
 
@@ -81,29 +84,44 @@ const EditForm = ({ note = {} }) => {
           }}
           error={errors?.content && true}
         />
-        <Grid className="flex items-center justify-center gap-4">
-          <IconButton
-            type="submit"
-            className="button"
-            disabled={Object.keys(errors).length > 0}
-          >
-            <Save />
-          </IconButton>
-          <IconButton onClick={() => reset()} className="button alternate">
-            <Refresh />
-          </IconButton>
+        {!isEdit ? (
+          <Grid className="flex justify-end gap-4">
+            <Button
+              type="submit"
+              className="button"
+              disabled={Object.keys(errors).length > 0}
+            >
+              Add note
+            </Button>
+            <Button onClick={() => reset()} className="button alternate">
+              Cancel
+            </Button>
+          </Grid>
+        ) : (
+          <Grid className="flex items-center justify-center gap-4">
+            <IconButton
+              type="submit"
+              className="button"
+              disabled={Object.keys(errors).length > 0}
+            >
+              <Save />
+            </IconButton>
+            <IconButton onClick={() => reset()} className="button alternate">
+              <Refresh />
+            </IconButton>
 
-          <Button
-            className="button w-fit justify-self-center"
-            onClick={handleBack}
-            startIcon={<ArrowBack />}
-          >
-            Back to all posts
-          </Button>
-        </Grid>
+            <Button
+              className="button w-fit justify-self-center"
+              onClick={handleBack}
+              startIcon={<ArrowBack />}
+            >
+              Back to all posts
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </Form>
   );
 };
 
-export default EditForm;
+export default NoteForm;

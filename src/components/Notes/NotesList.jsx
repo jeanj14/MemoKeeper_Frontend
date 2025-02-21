@@ -1,5 +1,5 @@
 import useGetNotes from "@api/useNotes";
-import Note from "@components/Main/Notes/Note";
+import Note from "@components/Notes/Note";
 import { CircularProgress, Grid2 as Grid } from "@mui/material";
 
 const NotesList = ({ isDeleted = false }) => {

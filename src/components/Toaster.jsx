@@ -21,6 +21,9 @@ const Toaster = () => {
       <Alert
         severity={status ?? "success"}
         variant="filled"
+        /*
+          - [ ] Add other stlying for different status
+        */
         className={`${status === "success" && "!bg-notes-teal"} `}
       >
         {msg}
