@@ -15,7 +15,7 @@ const Edit = () => {
     if (pathname === "/edit") document.title = "Notes Keeper // Edit Note";
   }, [pathname, posts]);
 
-  if (!posts) return <NotFound resource="note" />;
+  if (!edtNote) return <NotFound resource="note" />;
 
   return <>{edtNote && <NoteForm note={edtNote} />}</>;
 };
