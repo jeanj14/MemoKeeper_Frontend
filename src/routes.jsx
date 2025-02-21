@@ -2,7 +2,6 @@ import Deleted from "@pages/Deleted";
 import Edit from "@pages/Edit";
 import Home from "@pages/Home";
 import NotFound from "@pages/NotFound";
-import Test from "@pages/Test";
 import ErrorFallback from "@ui/ErrorFallback";
 import Layout from "@ui/Layout";
 import { createBrowserRouter } from "react-router-dom";
@@ -23,10 +22,6 @@ const routes = createBrowserRouter([
       {
         path: "/deleted",
         element: <Deleted />,
-      },
-      {
-        path: "/test",
-        element: <Test />,
       },
       {
         path: "*",
