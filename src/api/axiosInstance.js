@@ -2,7 +2,9 @@ import axios from "axios";
 import settings from "@api/settings";
 
 const axiosInstance = axios.create({
-  baseURL: `${settings.URL}:${settings.PRT}/${settings.API}`,
+  baseURL: settings.PRT
+    ? `${settings.URL}:${settings.PRT}/${settings.API}`
+    : `${settings.URL}/${settings.API}`,
   headers: {
     "Content-Type": "application/json",
   },
