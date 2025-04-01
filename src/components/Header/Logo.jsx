@@ -8,7 +8,7 @@ const Logo = () => {
       className="text-notes-teal cursor-pointer text-2xl font-extrabold uppercase"
       onClick={() => navigate("/")}
     >
-      Notes Keeper
+      MemoKeeper
     </Grid>
   );
 };
